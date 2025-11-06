@@ -49,7 +49,7 @@ const createTagPrompt = (content) => {
     },
     {
       role: "user",
-      content: `[게시글]\n ${content}\n[태그]:`,
+      content: `[게시글]\n ${content}\n[태그]:`, //태그에 이어서 작성하라는....
     },
   ];
 };
@@ -71,14 +71,15 @@ export const generateTags = async (content) => {
   try {
     const response = await openai.chat.completions.create({
       model: "gpt-4o",
-      messages,
-      temperature: 1,
-      max_tokens: 4000,
-      top_p: 1,
+      messages, //변수명이 같아서 뒤에 대입문 생략함
+      temperature: 1, //창의성 0~
+      max_tokens: 4000, //응답 최대 토큰
+      top_p: 1, //창의성 비슷한거.. 문장에 확률성? 1이 기본값(100%)
     });
 
     // 미션: AI가 출력한 태그들의 텍스트를 배열로 변환하여 반환하기
-    const tagText = response.choices[0].message.content;
+    const tagText = response.choices[0].message.content; //결과값 string (태그1, 태그2, ...)
+    console.log("🚀 ~ generateTags ~ tagText:", tagText);
     const tags = tagText.split(",");
     return tags;
   } catch (error) {
