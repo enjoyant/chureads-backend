@@ -39,7 +39,7 @@ export const handleSSEConnection = (req, res) => {
       clearInterval(heartbeat);
       sseClients.delete(res);
     }
-  }, 30000);
+  }, 30000); //ms단위
 
   // 클라이언트 연결 종료 시 정리
   req.on("close", () => {
