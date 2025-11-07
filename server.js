@@ -13,7 +13,11 @@ const app = express();
 const PORT = process.env.PORT || 8090;
 
 // cors 설정
-app.use(cors()); // 모든 도메인 허용
+const corsOption = {
+  origin: process.env.CLIENT_ORIGIN,
+  credentials: true,
+};
+app.use(cors(corsOption)); // ()비어 있으면 모든 도메인 허용,
 
 // 프론트에서 받은 json형태의 데이터를 객체로 파싱(변환)하여 사용하도록 설정
 app.use(express.json());
